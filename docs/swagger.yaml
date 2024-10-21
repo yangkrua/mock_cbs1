@@ -1,0 +1,162 @@
+definitions:
+  models.Account:
+    properties:
+      acctNo:
+        type: string
+      "no":
+        type: string
+      ptpAmount:
+        type: string
+      ptpDate:
+        type: string
+    type: object
+  models.RlcsLogin:
+    properties:
+      password:
+        type: string
+      username:
+        type: integer
+    type: object
+  models.UpdateWrapUpCodeRequest:
+    properties:
+      accountFollows:
+        items:
+          $ref: '#/definitions/models.Account'
+        type: array
+      activity_Code:
+        type: string
+      activity_Code2:
+        type: string
+      activity_Desc:
+        type: string
+      activity_Sub:
+        type: string
+      activity_Sub2:
+        type: string
+      activityCode_Sub:
+        type: string
+      cifNo:
+        type: string
+      collector:
+        type: string
+      collectorName:
+        type: string
+      follow_date:
+        type: string
+      receiveCollector:
+        type: string
+      telNo:
+        type: string
+    type: object
+host: 127.0.0.1:9343
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Testing Swagger APIs.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: MOCK RLCS Service
+  version: "1.0"
+paths:
+  /albums:
+    get:
+      consumes:
+      - application/json
+      description: GetAlbums
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      security:
+      - BearerAuth: []
+      summary: GetAlbums
+      tags:
+      - GetAlbums
+  /api/rlcs/follow:
+    post:
+      consumes:
+      - application/json
+      description: RlcsFollow
+      parameters:
+      - description: UpdateWrapUpCode Data
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateWrapUpCodeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      security:
+      - BearerAuth: []
+      summary: RlcsFollow
+      tags:
+      - RlcsFollow
+  /rlcs-autodial-service/api/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: RlcsLogin
+      parameters:
+      - description: Login Data
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.RlcsLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      security:
+      - BearerAuth: []
+      summary: RlcsLogin
+      tags:
+      - RlcsLogin
+schemes:
+- http
+- https
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
